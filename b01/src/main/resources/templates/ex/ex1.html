@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3 th:text="${list}"></h3>
+    <hr/>
+    <h3>[[${list}]]</h3>
+    <hr/>
+    <p th:text="${msg}"></p>
+    <p>[[${msg}]]</p>
+
+    <p th:utext="${msg}"></p>
+    <p>[(${msg})]</p>
+    <hr/>
+
+    <script th:inline="javascript">
+
+        var list = [[${list}]];
+        var gender = [[${gender}]];
+
+        console.log(list);
+        console.log(gender);
+    </script>
+
+
+
+<div th:with="num1 = ${10}, num2 = ${20}">
+    <h3 th:text="${num1+num2}" :></h3>
+</div>
+
+<div th:with="ls = ${list}">
+    <h1 th:text="${ls}" :></h1>
+</div>
+<hr/>
+<ul>
+    <h3><li th:each="str : ${list}" th:text="${str}"></li></h3>
+</ul>
+<hr/>
+
+<ul>
+    <th:block th:each="str : ${list}">
+        <li>[[${str}]]</li>
+    </th:block>
+</ul>
+<hr/>
+
+<ul>
+    <li th:each="str, status : ${list}">
+        [[${status.index}]] : [[${str}]]
+    </li>
+</ul>
+
+<ul>
+    <li th:each="str, status : ${list}">
+        [[${status.index}]] : [[${str}]] <br>
+        [[${status.count}]] <br>
+        [[${status.size}]] <br>
+        [[${status.first}]] <br> <!-- 배열의 첫 번째 값이면 true 반환 -->
+        [[${status.last}]]       <!-- 배열의 마지막 값이면 false 반환 -->
+        <hr/>
+    </li>
+</ul>
+<hr/>
+
+    <!-- List<String> list = Arrays.asList("AAA", "BBB", "CCC", "DDD"); -->
+<ul>
+    <li th:each="str, status : ${list}">
+        <span th:if = "${status.odd}"> ODD - [[${str}]]</span> <!-- 홀수 -->
+        <span th:if = "${status.even}"> Even - [[${str}]]</span> <!-- 짝수 -->
+    </li>
+</ul>
+<hr/>
+
+<ul>
+    <li th:each="str, status : ${list}">
+        <span th:if = "${status.first}">[[${str}]]</span>
+    </li>
+</ul>
+<hr/>
+<ul>
+    <li th:each="str, status : ${list}">
+        <span th:if = "${status.last}">[[${str}]]</span>
+    </li>
+</ul>
+<hr/>
+
+<ul>
+    <li th:each="str, status : ${list}">
+        <span th:switch="${status.even}">
+            <span th:case="true">[[${str}]]-짝수</span>
+            <span th:case="false">[[${str}]]-홀수</span>
+        </span>
+    </li>
+</ul>
+<hr/>
+
+<a th:href = "@{/hello}">Go To /hello</a>
+<a th:href = "@{/helloArr}">Go To /helloArr</a>
+</body>
+</html>

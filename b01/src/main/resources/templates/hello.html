@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<!-- 위 내용 추가해야 ${} 써서 표현할 수 있음, jsp에선 taglib jsp/jstl/core 추가했던 그것과 비슷 -->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Hello Home Page</h1>
+    <h1 th:text="${msg}">어서와</h1>
+    <!-- 주소창으로 들어가면 어서와 자리에 th:text값이 들어간다.
+    hello.html 파일 바로 실행하면 어서와가 보임 -->
+    <h2 th:text=" 'My name' + ${name}"></h2>
+</body>
+</html>
