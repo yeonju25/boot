@@ -11,7 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 public class Board extends BaseEntity{
-    @Id
+    // DTO에 쓴거랑 똑같아야 함, SQL문으로 DB로 보내기~
+    @Id     // 기본키
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // IDENTITY는 마리아디비랑 mysql의 시퀀스같은 역할 // auto는 디비에 맞춰서 자동으로 해주는거
     private Long bno;
 
