@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.b01.dto.BoardDTO;
+import org.zerock.b01.dto.BoardListReplyCountDTO;
 import org.zerock.b01.dto.PageRequestDTO;
 import org.zerock.b01.dto.PageResponseDTO;
 import org.zerock.b01.service.BoardService;
@@ -27,8 +28,13 @@ public class boardController {
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
-        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+        // 걍 보여주기
+//        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+
+        // 댓글 개수까지 포함되게 보여주기
+        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
         log.info(responseDTO);
+
         model.addAttribute("responseDTO", responseDTO);
     }
 

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.zerock.b01.domain.Board;
 import org.zerock.b01.dto.BoardDTO;
+import org.zerock.b01.dto.BoardListReplyCountDTO;
 import org.zerock.b01.dto.PageRequestDTO;
 import org.zerock.b01.dto.PageResponseDTO;
 import org.zerock.b01.repository.BoardRepository;
@@ -95,6 +96,22 @@ public class BoardServiceImpl implements BoardService{
 //                .dtoList(dtoList)
 //                .total((int)result.getTotalElements())
 //                .build();
+    }
+
+    @Override
+    public PageResponseDTO<BoardListReplyCountDTO> listWithReplyCount(PageRequestDTO pageRequestDTO) {
+        String[] types = pageRequestDTO.getTypes();     // t c w
+        String keyword = pageRequestDTO.getKeyword();   // java
+        Pageable pageable = pageRequestDTO.getPageable("bno");  // page 정보 / 0, 10, bno 기준으로 정렬
+        // 중복 발생시 가변인자라서 "bno"뒤에 "정렬기준" 더 추가해도 됨
+
+        Page<BoardListReplyCountDTO> result = boardRepository.searchWithReplyCount(types, keyword, pageable);
+
+        return PageResponseDTO.<BoardListReplyCountDTO>withAll()
+        .pageRequestDTO(pageRequestDTO)
+        .dtoList(result.getContent())
+        .total((int)result.getTotalElements())
+        .build();
     }
 
 
